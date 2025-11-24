@@ -1,0 +1,39 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OOP_LabWork2.MainPage"
+             Title="XML Science Analyzer"
+             BackgroundColor="#1E1E2E">
+
+    <Grid RowDefinitions="Auto, Auto, *" Padding="15" RowSpacing="15">
+
+       <Border Grid.Row="0" Stroke="#45475A" StrokeThickness="1" StrokeShape="RoundRectangle 15" Padding="10" BackgroundColor="#262638">
+            <Grid ColumnDefinitions="*, Auto">
+                
+                <HorizontalStackLayout Grid.Column="0" Spacing="15" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Button Text="Відкрити XML файл" Clicked="PickFileButton_Clicked" BackgroundColor="#89B4FA" TextColor="#1E1E2E" FontAttributes="Bold" CornerRadius="8"/>
+                    <Label x:Name="FileNameLabel" Text="Файл не обрано" VerticalOptions="Center" TextColor="#CDD6F4" FontAttributes="Italic"/>
+                </HorizontalStackLayout>
+
+                <Button Grid.Column="1" Text="Вийти" Clicked="ExitButton_Clicked" BackgroundColor="#F38BA8" TextColor="#1E1E2E" FontAttributes="Bold" CornerRadius="8" WidthRequest="100" HeightRequest="40" ToolTipProperties.Text="Вихід з програми"/>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" x:Name="ToolbarGrid" ColumnDefinitions="Auto, *, *, Auto, Auto, Auto" ColumnSpacing="8" IsEnabled="False" Opacity="0.5">
+
+            <Button Grid.Column="0" Text="HTML" Clicked="ExportHtmlButton_Clicked" BackgroundColor="#A6E3A1" TextColor="#1E1E2E" FontAttributes="Bold" CornerRadius="8"/>
+
+            <Picker Grid.Column="1" x:Name="AttributeTypePicker" Title="Критерій" SelectedIndexChanged="AttributeTypePicker_SelectedIndexChanged" BackgroundColor="#313244" TextColor="#CDD6F4" TitleColor="#A6ADC8"/>
+            <Picker Grid.Column="2" x:Name="AttributeValuePicker" Title="Значення" BackgroundColor="#313244" TextColor="#CDD6F4" TitleColor="#A6ADC8"/>
+
+            <Button Grid.Column="3" Text="Clear" Clicked="ResetFilters_Clicked" BackgroundColor="#F38BA8" TextColor="#1E1E2E" FontAttributes="Bold" WidthRequest="100" ToolTipProperties.Text="Скинути фільтри" CornerRadius="8"/>
+            <Button Grid.Column="4" Text="Search" Clicked="SearchButton_Clicked" BackgroundColor="#CBA6F7" TextColor="#1E1E2E" FontAttributes="Bold" WidthRequest="100" CornerRadius="8"/>
+
+            <Picker Grid.Column="5" x:Name="StrategyPicker" Title="Метод" SelectedIndexChanged="StrategyPicker_SelectedIndexChanged" WidthRequest="110" BackgroundColor="#313244" TextColor="#CDD6F4" TitleColor="#A6ADC8"/>
+        </Grid>
+
+        <Border Grid.Row="2" Stroke="#45475A" StrokeShape="RoundRectangle 10" BackgroundColor="#262638" Padding="5">
+            <WebView x:Name="ResultsWebView" BackgroundColor="Transparent"/>
+        </Border>
+
+    </Grid>
+</ContentPage>
