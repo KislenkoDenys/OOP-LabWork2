@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Scientists>
+	<Scientist id="1001" active="true">
+		<FullName>Іваненко Петро Васильович</FullName>
+		<Faculty>Факультет Інформаційних Технологій</Faculty>
+		<Department>Кафедра Програмного Забезпечення</Department>
+		<Degree type="Кандидат">Технічні науки</Degree>
+		<Ranks>
+			<Rank title="Доцент" date="2018-05-15"/>
+		</Ranks>
+		<ExperienceYears>15</ExperienceYears>
+	</Scientist>
+
+	<Scientist id="1002">
+		<FullName>Степаненко Ольга Ігорівна</FullName>
+		<Faculty>Факультет Економіки та Менеджменту</Faculty>
+		<Department>Кафедра Фінансів</Department>
+		<Degree type="Доктор">Економічні науки</Degree>
+		<Ranks>
+			<Rank title="Професор" date="2022-11-01"/>
+			<Rank title="Доцент" date="2015-08-20"/>
+		</Ranks>
+		<ExperienceYears>25</ExperienceYears>
+	</Scientist>
+
+	<Scientist id="1003" active="false" researchArea="Physics">
+		<FullName>Ковальчук Андрій Миколайович</FullName>
+		<Faculty>Факультет Природничих Наук</Faculty>
+		<Department>Кафедра Теоретичної Фізики</Department>
+		<Degree type="Кандидат">Фізико-математичні науки</Degree>
+		<Ranks>
+			<Rank title="Старший науковий співробітник" date="2019-01-25"/>
+		</Ranks>
+		<ExperienceYears>10</ExperienceYears>
+	</Scientist>
+</Scientists>

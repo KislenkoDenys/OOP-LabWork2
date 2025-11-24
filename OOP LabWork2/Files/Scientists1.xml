@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Scientists>
+
+	<Scientist id="1001">
+		<FullName>Нікіченко Микола Семенович</FullName>
+		<Faculty>Факультет комп'ютерних наук та кібернетики</Faculty>
+		<Department>Кафедра теорії та технології програмування</Department>
+		<Degree type="Доктор">Фізико-математичні науки</Degree>
+		<Ranks>
+			<Rank title="Професор" date="2010-09-01"/>
+			<Rank title="Завідувач кафедри" date="2008-05-15"/>
+		</Ranks>
+	</Scientist>
+
+	<Scientist id="1002">
+		<FullName>Шкільняк Оксана Степанівна</FullName>
+		<Faculty>Факультет комп'ютерних наук та кібернетики</Faculty>
+		<Department>Кафедра теорії та технології програмування</Department>
+		<Degree type="Кандидат">Фізико-математичні науки</Degree>
+		<Ranks>
+			<Rank title="Доцент" date="2015-02-20"/>
+		</Ranks>
+	</Scientist>
+
+	<Scientist id="2001">
+		<FullName>Ляшко Сергій Іванович</FullName>
+		<Faculty>Факультет комп'ютерних наук та кібернетики</Faculty>
+		<Department>Кафедра обчислювальної математики</Department>
+		<Degree type="Доктор">Фізико-математичні науки</Degree>
+		<Ranks>
+			<Rank title="Професор" date="1998-06-15"/>
+			<Rank title="Член-кореспондент НАНУ" date="2003-05-16"/>
+		</Ranks>
+	</Scientist>
+
+	<Scientist id="3001">
+		<FullName>Наконечний Олександр Григорович</FullName>
+		<Faculty>Факультет комп'ютерних наук та кібернетики</Faculty>
+		<Department>Кафедра системного аналізу</Department>
+		<Degree type="Доктор">Фізико-математичні науки</Degree>
+		<Ranks>
+			<Rank title="Професор" date="1995-10-20"/>
+		</Ranks>
+	</Scientist>
+
+	<Scientist id="4001">
+		<FullName>Крак Юрій Васильович</FullName>
+		<Faculty>Факультет комп'ютерних наук та кібернетики</Faculty>
+		<Department>Кафедра теоретичної кібернетики</Department>
+		<Degree type="Доктор">Фізико-математичні науки</Degree>
+		<Ranks>
+			<Rank title="Професор" date="2001-05-25"/>
+		</Ranks>
+	</Scientist>
+
+	<Scientist id="7001">
+		<FullName>Анісімов Анатолій Миколайович</FullName>
+		<Faculty>Факультет комп'ютерних наук та кібернетики</Faculty>
+		<Department>Кафедра математичної інформатики</Department>
+		<Degree type="Доктор">Фізико-математичні науки</Degree>
+		<Ranks>
+			<Rank title="Професор" date="1980-01-01"/>
+			<Rank title="Член-кореспондент НАНУ" date="1995-01-01"/>
+		</Ranks>
+	</Scientist>
+
+	<Scientist id="8001">
+		<FullName>Булавін Леонід Анатолійович</FullName>
+		<Faculty>Фізичний факультет</Faculty>
+		<Department>Кафедра молекулярної фізики</Department>
+		<Degree type="Доктор">Фізико-математичні науки</Degree>
+		<Ranks>
+			<Rank title="Академік НАНУ" date="2006-05-06"/>
+			<Rank title="Професор" date="1989-02-15"/>
+			<Rank title="Завідувач кафедри" date="1990-09-01"/>
+		</Ranks>
+	</Scientist>
+
+	<Scientist id="8002">
+		<FullName>Вільчинський Станіслав Йосипович</FullName>
+		<Faculty>Фізичний факультет</Faculty>
+		<Department>Кафедра теоретичної фізики</Department>
+		<Degree type="Доктор">Фізико-математичні науки</Degree>
+		<Ranks>
+			<Rank title="Професор" date="2008-10-22"/>
+			<Rank title="Декан" date="2021-01-25"/>
+		</Ranks>
+	</Scientist>
+
+	<Scientist id="8003">
+		<FullName>Єжов Сергій Миколайович</FullName>
+		<Faculty>Фізичний факультет</Faculty>
+		<Department>Кафедра ядерної фізики</Department>
+		<Degree type="Доктор">Фізико-математичні науки</Degree>
+		<Ranks>
+			<Rank title="Професор" date="2005-04-12"/>
+		</Ranks>
+	</Scientist>
+
+	<Scientist id="8004">
+		<FullName>Дмитренко Оксана Петрівна</FullName>
+		<Faculty>Фізичний факультет</Faculty>
+		<Department>Кафедра експериментальної фізики</Department>
+		<Degree type="Кандидат">Фізико-математичні науки</Degree>
+		<Ranks>
+			<Rank title="Доцент" date="2003-09-01"/>
+		</Ranks>
+	</Scientist>
+
+	<Scientist id="9001">
+		<FullName>Шевчук Ігор Олександрович</FullName>
+		<Faculty>Механіко-математичний факультет</Faculty>
+		<Department>Кафедра математичного аналізу</Department>
+		<Degree type="Доктор">Фізико-математичні науки</Degree>
+		<Ranks>
+			<Rank title="Професор" date="1986-06-15"/>
+			<Rank title="Завідувач кафедри" date="2009-09-01"/>
+		</Ranks>
+	</Scientist>
+
+	<Scientist id="9002">
+		<FullName>Петравчук Анатолій Петрович</FullName>
+		<Faculty>Механіко-математичний факультет</Faculty>
+		<Department>Кафедра алгебри та комп'ютерної математики</Department>
+		<Degree type="Доктор">Фізико-математичні науки</Degree>
+		<Ranks>
+			<Rank title="Професор" date="2004-11-20"/>
+		</Ranks>
+	</Scientist>
+
+	<Scientist id="9003">
+		<FullName>Безущак Оксана Омелянівна</FullName>
+		<Faculty>Механіко-математичний факультет</Faculty>
+		<Department>Кафедра алгебри та комп'ютерної математики</Department>
+		<Degree type="Кандидат">Фізико-математичні науки</Degree>
+		<Ranks>
+			<Rank title="Доцент" date="2002-09-01"/>
+			<Rank title="Декан" date="2020-12-15"/>
+		</Ranks>
+	</Scientist>
+
+	<Scientist id="9004">
+		<FullName>Мішура Юлія Степанівна</FullName>
+		<Faculty>Механіко-математичний факультет</Faculty>
+		<Department>Кафедра теорії ймовірностей</Department>
+		<Degree type="Доктор">Фізико-математичні науки</Degree>
+		<Ranks>
+			<Rank title="Професор" date="1992-05-18"/>
+		</Ranks>
+	</Scientist>
+
+	<Scientist id="10001">
+		<FullName>Анісімов Ігор Олексійович</FullName>
+		<Faculty>Факультет РЕКС</Faculty>
+		<Department>Кафедра радіофізики та комп'ютерних систем</Department>
+		<Degree type="Доктор">Фізико-математичні науки</Degree>
+		<Ranks>
+			<Rank title="Професор" date="1999-03-25"/>
+			<Rank title="Член-кореспондент НАНУ" date="2018-03-07"/>
+		</Ranks>
+	</Scientist>
+
+	<Scientist id="10002">
+		<FullName>Висоцький Володимир Іванович</FullName>
+		<Faculty>Факультет РЕКС</Faculty>
+		<Department>Кафедра математики та теоретичної радіофізики</Department>
+		<Degree type="Доктор">Фізико-математичні науки</Degree>
+		<Ranks>
+			<Rank title="Професор" date="1994-06-01"/>
+			<Rank title="Завідувач кафедри" date="2006-09-01"/>
+		</Ranks>
+	</Scientist>
+
+	<Scientist id="10003">
+		<FullName>Григорук Валерій Іванович</FullName>
+		<Faculty>Факультет РЕКС</Faculty>
+		<Department>Кафедра квантової радіофізики</Department>
+		<Degree type="Доктор">Фізико-математичні науки</Degree>
+		<Ranks>
+			<Rank title="Професор" date="2005-02-14"/>
+			<Rank title="Віце-президент АН ВШ України" date="2010-01-01"/>
+		</Ranks>
+	</Scientist>
+
+	<Scientist id="10004">
+		<FullName>Борецький В'ячеслав Францович</FullName>
+		<Faculty>Факультет РЕКС</Faculty>
+		<Department>Кафедра фізичної електроніки</Department>
+		<Degree type="Кандидат">Фізико-математичні науки</Degree>
+		<Ranks>
+			<Rank title="Доцент" date="2009-09-01"/>
+		</Ranks>
+	</Scientist>
+
+</Scientists>
