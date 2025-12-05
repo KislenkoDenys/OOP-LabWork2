@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Storage;
+using CommunityToolkit.Maui.Storage;
 using System.Text;
 using System.Threading;
 
@@ -10,6 +11,7 @@ namespace OOP_LabWork2
         private IXml _currentStrategy;
         private string _xmlContent = string.Empty;
         private string _xslContent = string.Empty;
+        private string _currentSearchResults = string.Empty;
         private Dictionary<string, List<string>> _filterCache;
         private readonly Dictionary<string, string> _uiToXmlKeys = new()
         {
@@ -26,7 +28,7 @@ namespace OOP_LabWork2
             {
                 new Sax(),
                 new Dom(),
-                new LinqToXmlStrategy()
+                new LinqToXml()
             };
 
             StrategyPicker.ItemsSource = _strategies.Select(s => s.Name).ToList();
@@ -91,33 +93,28 @@ namespace OOP_LabWork2
         }
         private async void ExportHtmlButton_Clicked(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(_xmlContent)) return;
-
+            if (string.IsNullOrEmpty(_currentSearchResults))
+            {
+                await DisplayAlert("Увага", "Спочатку відкрийте файл або виконайте пошук.", "OK");
+                return;
+            }
             try
             {
-                string xmlData;
-                if (AttributeTypePicker.SelectedItem != null && AttributeValuePicker.SelectedItem != null)
+                string xmlData = _currentSearchResults;
+                var transformer = new XslTransformer();
+                string htmlContent = transformer.XmltoHTML(xmlData, _xslContent);
+                using var stream = new MemoryStream(Encoding.UTF8.GetBytes(htmlContent));
+                string defaultFileName = $"FilteredReport_{DateTime.Now:yyyyMMdd_HHmmss}.html";
+                var fileSaverResult = await FileSaver.Default.SaveAsync(defaultFileName, stream, CancellationToken.None);
+                if (fileSaverResult.IsSuccessful)
                 {
-                    var criteria = new Dictionary<string, string> {
-                       { _uiToXmlKeys[AttributeTypePicker.SelectedItem.ToString()], AttributeValuePicker.SelectedItem.ToString() }
-                   };
-                    xmlData = _currentStrategy.Search(_xmlContent, criteria);
+                    await DisplayAlert("Успіх", $"Файл збережено: {fileSaverResult.FilePath}", "OK");
                 }
                 else
                 {
-                    xmlData = _currentStrategy.Search(_xmlContent, new Dictionary<string, string>());
+                    if (fileSaverResult.Exception != null)
+                        await DisplayAlert("Помилка", fileSaverResult.Exception.Message, "OK");
                 }
-                var transformer = new XslTransformer();
-                string htmlContent = transformer.XmltoHTML(xmlData, _xslContent);
-                string fileName = $"Report_{DateTime.Now:yyyyMMdd_HHmmss}.html";
-                string targetFile = Path.Combine(FileSystem.Current.CacheDirectory, fileName);
-
-                File.WriteAllText(targetFile, htmlContent);
-                await Share.Default.RequestAsync(new ShareFileRequest
-                {
-                    Title = "Зберегти HTML звіт",
-                    File = new ShareFile(targetFile)
-                });
             }
             catch (Exception ex)
             {
@@ -127,31 +124,31 @@ namespace OOP_LabWork2
         private void ResetFilters_Clicked(object sender, EventArgs e)
         {
             AttributeTypePicker.SelectedIndex = -1;
-            AttributeValuePicker.ItemsSource = null;
+            SearchEntry.Text = string.Empty;
             PerformSearch(new Dictionary<string, string>());
         }
         private void SearchButton_Clicked(object sender, EventArgs e)
         {
-            if (AttributeTypePicker.SelectedItem == null || AttributeValuePicker.SelectedItem == null)
+            if (AttributeTypePicker.SelectedItem == null || string.IsNullOrWhiteSpace(SearchEntry.Text))
             {
-                DisplayAlert("Увага", "Оберіть критерій та значення", "OK");
+                DisplayAlert("Увага", "Оберіть критерій та введіть текст для пошуку", "OK");
                 return;
             }
 
             var criteria = new Dictionary<string, string>();
             string uiKey = AttributeTypePicker.SelectedItem.ToString();
-            string value = AttributeValuePicker.SelectedItem.ToString();
+            string value = SearchEntry.Text.Trim(); // Беремо текст, а не SelectedItem
             criteria.Add(_uiToXmlKeys[uiKey], value);
 
             PerformSearch(criteria);
         }
-
         private void PerformSearch(Dictionary<string, string> criteria)
         {
             if (string.IsNullOrEmpty(_xmlContent)) return;
             try
             {
                 var resultsXml = _currentStrategy.Search(_xmlContent, criteria);
+                _currentSearchResults = resultsXml;
                 if (!resultsXml.Contains("<Scientist"))
                     DisplayAlert("Результат", "Нічого не знайдено.", "OK");
                 else
@@ -161,24 +158,8 @@ namespace OOP_LabWork2
         }
         private void LoadFilterData()
         {
-            if (string.IsNullOrEmpty(_xmlContent) || _currentStrategy == null) return;
-            _filterCache = _currentStrategy.GetFilterAttributes(_xmlContent);
             AttributeTypePicker.ItemsSource = _uiToXmlKeys.Keys.ToList();
         }
-
-        private void AttributeTypePicker_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (AttributeTypePicker.SelectedItem == null || _filterCache == null) return;
-            string selectedUiKey = AttributeTypePicker.SelectedItem.ToString();
-            string xmlKey = _uiToXmlKeys[selectedUiKey];
-            if (_filterCache.TryGetValue(xmlKey, out var values))
-            {
-                AttributeValuePicker.ItemsSource = values;
-                AttributeValuePicker.SelectedIndex = -1;
-                AttributeValuePicker.Title = $"Оберіть {selectedUiKey.ToLower()}";
-            }
-        }
-
         private void StrategyPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (StrategyPicker.SelectedIndex >= 0)

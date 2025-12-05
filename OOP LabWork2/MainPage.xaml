@@ -6,9 +6,9 @@
 
     <Grid RowDefinitions="Auto, Auto, *" Padding="15" RowSpacing="15">
 
-       <Border Grid.Row="0" Stroke="#45475A" StrokeThickness="1" StrokeShape="RoundRectangle 15" Padding="10" BackgroundColor="#262638">
+        <Border Grid.Row="0" Stroke="#45475A" StrokeThickness="1" StrokeShape="RoundRectangle 15" Padding="10" BackgroundColor="#262638">
             <Grid ColumnDefinitions="*, Auto">
-                
+
                 <HorizontalStackLayout Grid.Column="0" Spacing="15" HorizontalOptions="Center" VerticalOptions="Center">
                     <Button Text="Відкрити XML файл" Clicked="PickFileButton_Clicked" BackgroundColor="#89B4FA" TextColor="#1E1E2E" FontAttributes="Bold" CornerRadius="8"/>
                     <Label x:Name="FileNameLabel" Text="Файл не обрано" VerticalOptions="Center" TextColor="#CDD6F4" FontAttributes="Italic"/>
@@ -22,8 +22,14 @@
 
             <Button Grid.Column="0" Text="HTML" Clicked="ExportHtmlButton_Clicked" BackgroundColor="#A6E3A1" TextColor="#1E1E2E" FontAttributes="Bold" CornerRadius="8"/>
 
-            <Picker Grid.Column="1" x:Name="AttributeTypePicker" Title="Критерій" SelectedIndexChanged="AttributeTypePicker_SelectedIndexChanged" BackgroundColor="#313244" TextColor="#CDD6F4" TitleColor="#A6ADC8"/>
-            <Picker Grid.Column="2" x:Name="AttributeValuePicker" Title="Значення" BackgroundColor="#313244" TextColor="#CDD6F4" TitleColor="#A6ADC8"/>
+            <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="0">
+                <Label Text="Критерій" TextColor="#A6ADC8" FontSize="14" Margin="4,0,0,2"/>
+                <Picker x:Name="AttributeTypePicker" Title="" BackgroundColor="#313244" TextColor="#CDD6F4" HeightRequest="40"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" Spacing="0">
+                <Label Text="Значення" TextColor="#A6ADC8" FontSize="14" Margin="4,0,0,2"/>
+                <Entry x:Name="SearchEntry" Placeholder="Введіть текст..." BackgroundColor="#313244" TextColor="#CDD6F4" PlaceholderColor="#585B70" HeightRequest="40"/>
+            </VerticalStackLayout>
 
             <Button Grid.Column="3" Text="Clear" Clicked="ResetFilters_Clicked" BackgroundColor="#F38BA8" TextColor="#1E1E2E" FontAttributes="Bold" WidthRequest="100" ToolTipProperties.Text="Скинути фільтри" CornerRadius="8"/>
             <Button Grid.Column="4" Text="Search" Clicked="SearchButton_Clicked" BackgroundColor="#CBA6F7" TextColor="#1E1E2E" FontAttributes="Bold" WidthRequest="100" CornerRadius="8"/>

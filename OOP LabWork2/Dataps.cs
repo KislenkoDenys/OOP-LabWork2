@@ -121,10 +121,20 @@ namespace OOP_LabWork2
                                 bool match = true;
                                 foreach (var criterion in searchCriteria)
                                 {
-                                    if (criterion.Key == "Faculty" && curS.Faculty?.Trim() != criterion.Value) match = false;
-                                    else if (criterion.Key == "Department" && curS.Department?.Trim() != criterion.Value) match = false;
-                                    else if (criterion.Key == "DegreeType" && curS.DegreeType?.Trim() != criterion.Value) match = false;
-                                    else if (criterion.Key == "Rank" && !curS.Ranks.Any(r => r.Title.Trim() == criterion.Value)) match = false;
+                                    string searchVal = criterion.Value; // Те, що ввів користувач
+
+                                    // Використовуємо Helper для перевірки на входження без урахування регістру
+                                    if (criterion.Key == "Faculty" &&
+                                        (curS.Faculty == null || !curS.Faculty.Contains(searchVal, StringComparison.OrdinalIgnoreCase))) match = false;
+
+                                    else if (criterion.Key == "Department" &&
+                                        (curS.Department == null || !curS.Department.Contains(searchVal, StringComparison.OrdinalIgnoreCase))) match = false;
+
+                                    else if (criterion.Key == "DegreeType" &&
+                                        (curS.DegreeType == null || !curS.DegreeType.Contains(searchVal, StringComparison.OrdinalIgnoreCase))) match = false;
+
+                                    else if (criterion.Key == "Rank" &&
+                                        !curS.Ranks.Any(r => r.Title.Contains(searchVal, StringComparison.OrdinalIgnoreCase))) match = false;
                                 }
                                 if (match) res.Add(curS);
                             }
@@ -207,33 +217,70 @@ namespace OOP_LabWork2
         {
             var xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(xmlContent);
-            string xpath = "//Scientists/Scientist";
-            foreach (var crit in searchCriteria)
-            {
-                if (crit.Key == "DegreeType")
-                    xpath += $"[Degree/@type=\"{crit.Value}\"]";
-                else if (crit.Key == "Rank")
-                    xpath += $"[Ranks/Rank/@title=\"{crit.Value}\"]";
-                else
-                    xpath += $"[{crit.Key}=\"{crit.Value}\"]";
-            }
-
-            var filtered = xmlDoc.SelectNodes(xpath);
             var res = new XmlDocument();
-            res.AppendChild(res.CreateElement("ScientistsResults"));
-
-            if (filtered != null)
+            var root = res.CreateElement("ScientistsResults");
+            res.AppendChild(root);
+            var scientists = xmlDoc.SelectNodes("//Scientists/Scientist");
+            if (scientists != null)
             {
-                foreach (XmlNode node in filtered)
+                foreach (XmlNode node in scientists)
                 {
-                    res.DocumentElement?.AppendChild(res.ImportNode(node, true));
+                    bool isMatch = true;
+                    foreach (var crit in searchCriteria)
+                    {
+                        string valueToCheck = string.Empty;
+                        if (crit.Key == "DegreeType")
+                        {
+                            var degreeNode = node.SelectSingleNode("Degree");
+                            valueToCheck = degreeNode?.Attributes["type"]?.Value ?? "";
+                        }
+                        else if (crit.Key == "Rank")
+                        {
+                            var rankNodes = node.SelectNodes("Ranks/Rank");
+                            bool rankFound = false;
+                            if (rankNodes != null)
+                            {
+                                foreach (XmlNode rank in rankNodes)
+                                {
+                                    string rankTitle = rank.Attributes["title"]?.Value ?? "";
+                                    if (rankTitle.Contains(crit.Value, StringComparison.OrdinalIgnoreCase))
+                                    {
+                                        rankFound = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (!rankFound)
+                            {
+                                isMatch = false;
+                                break;
+                            }
+                            continue;
+                        }
+                        else
+                        {
+                            var targetNode = node.SelectSingleNode(crit.Key);
+                            valueToCheck = targetNode?.InnerText ?? "";
+                        }
+                        if (!valueToCheck.Contains(crit.Value, StringComparison.OrdinalIgnoreCase))
+                        {
+                            isMatch = false;
+                            break;
+                        }
+                    }
+
+                    if (isMatch)
+                    {
+                        root.AppendChild(res.ImportNode(node, true));
+                    }
                 }
             }
+
             return res.OuterXml;
         }
     }
 
-    public class LinqToXmlStrategy : IXml
+    public class LinqToXml : IXml
     {
         public string Name => "LINQ";
 
@@ -255,13 +302,21 @@ namespace OOP_LabWork2
             var query = doc.Descendants("Scientist").AsEnumerable();
 
             if (criteria.ContainsKey("Faculty"))
-                query = query.Where(s => s.Element("Faculty")?.Value == criteria["Faculty"]);
+                query = query.Where(s => s.Element("Faculty")?.Value
+                    .Contains(criteria["Faculty"], StringComparison.OrdinalIgnoreCase) == true);
+
             if (criteria.ContainsKey("Department"))
-                query = query.Where(s => s.Element("Department")?.Value == criteria["Department"]);
+                query = query.Where(s => s.Element("Department")?.Value
+                    .Contains(criteria["Department"], StringComparison.OrdinalIgnoreCase) == true);
+
             if (criteria.ContainsKey("DegreeType"))
-                query = query.Where(s => s.Element("Degree")?.Attribute("type")?.Value == criteria["DegreeType"]);
+                query = query.Where(s => s.Element("Degree")?.Attribute("type")?.Value
+                    .Contains(criteria["DegreeType"], StringComparison.OrdinalIgnoreCase) == true);
+
             if (criteria.ContainsKey("Rank"))
-                query = query.Where(s => s.Descendants("Rank").Any(r => r.Attribute("title")?.Value == criteria["Rank"]));
+                query = query.Where(s => s.Descendants("Rank")
+                    .Any(r => r.Attribute("title")?.Value
+                    .Contains(criteria["Rank"], StringComparison.OrdinalIgnoreCase) == true));
 
             var resultsDoc = new XDocument(new XElement("ScientistsResults", query));
             return resultsDoc.ToString();
